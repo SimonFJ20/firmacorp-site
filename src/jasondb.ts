@@ -27,7 +27,13 @@ class JasonCollection {
         return null;
     }
 
-    public updateOne = <T extends JasonDoc = JasonDoc>(doc: {}, query: {}) => {
+    public findAll =  <T extends JasonDoc = JasonDoc>(query: {}) => {
+        const out: T[] = [];
+        for(let i in this.docs) if(compareObjects(this.docs[i], query)) out.push(this.docs[i] as T);
+        return out;
+    }
+
+    public updateOne = <T extends JasonDoc = JasonDoc>(query: {}, doc: {}) => {
         for(let i in this.docs) if(compareObjects(this.docs[i], query)) {
             this.docs[i] = {...this.docs[i], ...doc, id: this.docs[i].id};
             return this.docs[i] as T
@@ -35,7 +41,7 @@ class JasonCollection {
         return null;
     }
 
-    public replaceOne = <T extends JasonDoc = JasonDoc>(doc: {}, query: {}) => {
+    public replaceOne = <T extends JasonDoc = JasonDoc>(query: {}, doc: {}) => {
         for(let i in this.docs) if(compareObjects(this.docs[i], query)) {
             this.docs[i] = {...doc, id: this.docs[i].id};
             return this.docs[i] as T
@@ -93,7 +99,7 @@ export class JasonDB {
         const data = {
             collections: this.collections
         };
-        const json = JSON.stringify(data);
+        const json = JSON.stringify(data, null, 4);
         writeFileSync(this.filename, json);
     }
 

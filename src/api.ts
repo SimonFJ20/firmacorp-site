@@ -1,14 +1,14 @@
 import { Router } from "express"
 import { getJasonDB } from "./jasondb";
 import { exists, generateUUID } from "./utils";
-import { UserDoc } from "./models";
+import { ProduktDoc, UserDoc } from "./models";
 
 
 export const api = () => {
     const router = Router();
     const db = getJasonDB('db.json');
     
-    router.post('/login', async (req, res) => {
+    router.post('/users/login', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
@@ -44,11 +44,11 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /login', error);
+            console.error('Error on route /users/login', error);
         }
     });
 
-    router.post('/logout', async (req, res) => {
+    router.post('/users/logout', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
@@ -64,7 +64,7 @@ export const api = () => {
                 return;
             }
 
-            delete existingUser.token;
+            existingUser.token = '';
             const user = Users.replaceOne<UserDoc>({id: existingUser.id}, existingUser); 
             if(!user) throw new Error('error when replacing user');
             db.save();
@@ -75,11 +75,11 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /logout', error);
+            console.error('Error on route /users/logout', error);
         }
     });
 
-    router.get('/checktoken/:token', async (req, res) => {
+    router.get('/users/checktoken/:token', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
@@ -101,11 +101,11 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /logout', error);
+            console.error('Error on route /users/checktoken', error);
         }
     });
 
-    router.post('/register', async (req, res) => {
+    router.post('/users/register', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
@@ -138,11 +138,129 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /register', error);
+            console.error('Error on route /users/register', error);
         }
     });
 
+    router.post('/products/create', async (req, res) => {
+        try {
+            db.load();
+            const Users = db.collection('users');
+            const Products = db.collection('products');
 
+            if(!exists(req.body.token, req.body.title, req.body.description, req.body.price, req.body.images)) {
+                res.status(400).json({success: false, response: 'incomplete'});
+                return;
+            }
+
+            const existingUser = Users.findOne<UserDoc>({token: req.body.token});
+            if(!existingUser) {
+                res.status(400).json({success: false, response: 'unknown'});
+                return;
+            }
+
+            const productDetails = {
+                title: req.body.title,
+                description: req.body.description,
+                price: req.body.price,
+                images: req.body.images
+            }
+
+            const product = Products.insertOne<ProduktDoc>(productDetails);
+            if(!product) throw new Error('error when inserting product');
+
+            db.save();
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                product: product
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /products/create', error);
+        }
+    });
+
+    router.post('/products/delete', async (req, res) => {
+        try {
+            db.load();
+            const Users = db.collection('users');
+            const Products = db.collection('products');
+
+            if(!exists(req.body.token, req.body.id)) {
+                res.status(400).json({success: false, response: 'incomplete'});
+                return;
+            }
+
+            const existingUser = Users.findOne<UserDoc>({token: req.body.token});
+            if(!existingUser) {
+                res.status(400).json({success: false, response: 'unknown'});
+                return;
+            }
+
+            const product = Products.deleteOne<ProduktDoc>({id: req.body.id});
+            if(!product) throw new Error('error when deleting product');
+
+            db.save();
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                product: product
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /products/delete', error);
+        }
+    });
+
+    router.get('/products/getone/:id', async (req, res) => {
+        try {
+            db.load();
+            const Products = db.collection('products');
+
+            if(!exists(req.params.id)) {
+                res.status(400).json({success: false, response: 'incomplete'});
+                return;
+            }
+
+            const product = Products.findOne<ProduktDoc>({id: req.params.id});
+            if(!product) {
+                res.status(404).json({success: false, response: 'unknown'});
+                return;
+            }
+
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                product: product
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /products/getone', error);
+        }
+    });
+
+    router.get('/products/search/:search?', async (req, res) => {
+        try {
+            db.load();
+            const Products = db.collection('products');
+
+            const search = req.params["search?"] || '';
+            const searchRegex = new RegExp(search);
+            const cursor = Products.findAll<ProduktDoc>({});
+            const products: ProduktDoc[] = [];
+            for(let i in cursor) if(searchRegex.test(cursor[i].title)) products.push(cursor[i]);
+
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                products: products
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /products/search', error);
+        }
+    });
 
     return router;
 }
