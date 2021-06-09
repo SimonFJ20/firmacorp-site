@@ -1,14 +1,14 @@
 import { Router } from "express"
 import { getJasonDB } from "./jasondb";
 import { exists, generateUUID } from "./utils";
-import { UserDoc } from "./models";
+import { ProduktDoc, UserDoc } from "./models";
 
 
 export const api = () => {
     const router = Router();
     const db = getJasonDB('db.json');
     
-    router.post('/login', async (req, res) => {
+    router.post('/users/login', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
@@ -48,7 +48,7 @@ export const api = () => {
         }
     });
 
-    router.post('/logout', async (req, res) => {
+    router.post('/users/logout', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
@@ -79,7 +79,7 @@ export const api = () => {
         }
     });
 
-    router.get('/checktoken/:token', async (req, res) => {
+    router.get('/users/checktoken/:token', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
@@ -105,7 +105,7 @@ export const api = () => {
         }
     });
 
-    router.post('/register', async (req, res) => {
+    router.post('/users/register', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
@@ -142,7 +142,44 @@ export const api = () => {
         }
     });
 
+    router.post('/products/create', async (req, res) => {
+        try {
+            db.load();
+            const Users = db.collection('users');
+            const Products = db.collection('products');
 
+            if(!exists(req.body.token, req.body.title, req.body.description, req.body.price, req.body.images)) {
+                res.status(400).json({success: false, response: 'incomplete'});
+                return;
+            }
+
+            const existingUser = Users.findOne<UserDoc>({token: req.body.token});
+            if(!existingUser) {
+                res.status(400).json({success: false, response: 'unknown'});
+                return;
+            }
+
+            const productDetails = {
+                title: req.body.title,
+                description: req.body.description,
+                price: req.body.price,
+                images: req.body.images
+            }
+
+            const product = Products.insertOne<ProduktDoc>(productDetails);
+            if(!product) throw new Error('error when inserting product');
+
+            db.save();
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                product: product
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /register', error);
+        }
+    });
 
     return router;
 }
