@@ -21,7 +21,7 @@ app.get('/product/:id', async (req, res) => {
 });
 
 const apiRouter = api();
-app.use('/api', api);
+app.use('/api', apiRouter);
 app.use('/', express.static(path.join(__dirname, '../public/')));
 
 app.listen(PORT, () => {
