@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "fs";
 import { compareObjects, generateUUID } from "./utils";
 
-interface JasonDoc {
+export interface JasonDoc {
     id: string;
 }
 
@@ -15,39 +15,39 @@ class JasonCollection {
         this.docs = docs;
     }
 
-    public insertOne = (doc: {}) => {
+    public insertOne = <T extends JasonDoc = JasonDoc>(doc: {}) => {
         const id = generateUUID(16);
         const jasonDoc: JasonDoc = {...doc, id};
         this.docs.push(jasonDoc);
-        return id;
+        return jasonDoc as T;
     }
 
-    public findOne = (query: {}) => {
-        for(let i in this.docs) if(compareObjects(this.docs[i], query)) return this.docs[i];
+    public findOne = <T extends JasonDoc = JasonDoc>(query: {}) => {
+        for(let i in this.docs) if(compareObjects(this.docs[i], query)) return this.docs[i] as T;
         return null;
     }
 
-    public updateOne = (doc: {}, query: {}) => {
+    public updateOne = <T extends JasonDoc = JasonDoc>(doc: {}, query: {}) => {
         for(let i in this.docs) if(compareObjects(this.docs[i], query)) {
             this.docs[i] = {...this.docs[i], ...doc, id: this.docs[i].id};
-            return this.docs[i]
+            return this.docs[i] as T
         };
         return null;
     }
 
-    public replaceOne = (doc: {}, query: {}) => {
+    public replaceOne = <T extends JasonDoc = JasonDoc>(doc: {}, query: {}) => {
         for(let i in this.docs) if(compareObjects(this.docs[i], query)) {
             this.docs[i] = {...doc, id: this.docs[i].id};
-            return this.docs[i]
+            return this.docs[i] as T
         };
         return null;
     }
 
-    public deleteOne = (query: {}) => {
+    public deleteOne = <T extends JasonDoc = JasonDoc>(query: {}) => {
         for(let i in this.docs) if(compareObjects(this.docs[i], query)) {
             const doc = Object.create(this.docs[i]) as JasonDoc;
             delete this.docs[i]
-            return doc;
+            return doc as T;
         };
         return null;
     }
