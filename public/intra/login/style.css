@@ -1,0 +1,115 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow-y: hidden;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+
+    margin: 0;
+    padding: 0;
+
+    background-color: rgb(245, 245, 245);
+}
+
+#topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: rgb(0, 150, 255);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#topbar > h2 {
+    margin: 0;
+    padding: 15px 5px;
+
+    color: white;
+    
+}
+
+#content {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+#form {
+    text-align: center;
+    background-color: white;
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 15px;
+    padding: 20px;
+    width: 20%;
+    height: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+#form > input {
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    border: 2px solid rgb(100, 100, 100);
+    width: 70%;
+    transition: width 200ms;
+}
+
+#form > input:focus {
+    width: 95%;
+}
+
+#form > button {
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px;
+    padding-bottom: 12px;
+    margin: 5px;
+    border-radius: 10px;
+    border: 2px solid rgb(100, 100, 100);
+    background-color: rgb(0, 150, 255);
+    width: 70%;
+    transition: width 200ms;
+}
+
+#form > button:hover {
+    background-color: rgb(196, 196, 196);
+    cursor: pointer;
+    width: 95%;
+}
+
+#form > button:active {
+    width: 95%;
+}
+
+#form > button:active {
+    background-color: rgb(165, 165, 165);
+    padding-top: 8px;
+    font-size: 18px;
+    padding-bottom: 11px;
+}
+
+#form > a {
+    font-size: 16px;
+    color: rgb(83, 83, 83);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#form > a:hover {
+    text-decoration: underline;
+}
+
+#form > a:active {
+    background-color: rgb(196, 196, 196);
+}
