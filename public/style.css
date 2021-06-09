@@ -84,6 +84,7 @@ body {
 
 .carousel-img {
     border-radius: 0 0.5rem 0.5rem 0;
+    object-fit: cover;
 }
 
 .carousel-switch {

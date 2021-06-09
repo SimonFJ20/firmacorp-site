@@ -81,7 +81,7 @@ body {
     margin: 0 1rem;
     height: 14rem;
     width: 14rem;
-    background-size: contain;
+    object-fit: cover;
     border-radius: 100%;
 }
 
