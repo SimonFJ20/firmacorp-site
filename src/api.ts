@@ -30,11 +30,11 @@ export const api = () => {
             }
 
             existingUser.token = generateUUID(32);
-            const user = Users.replaceOne<UserDoc>({id: existingUser.id}, existingUser); 
-            if(!user) throw new Error('error when replacing user');
+            const user = Users.updateOne<UserDoc>({id: existingUser.id}, existingUser); 
+            if(!user) throw new Error('error when updating user');
             db.save();
 
-
+            console.log(user)
             res.status(200).json({
                 success: true,
                 response: 'success',
@@ -79,17 +79,17 @@ export const api = () => {
         }
     });
 
-    router.post('/checktoken', async (req, res) => {
+    router.get('/checktoken/:token', async (req, res) => {
         try {
             db.load();
             const Users = db.collection('users');
 
-            if(!exists(req.body.token)) {
+            if(!exists(req.params.token)) {
                 res.status(400).json({success: false, response: 'incomplete'});
                 return;
             }
 
-            const existingUser = Users.findOne<UserDoc>({token: req.body.token});
+            const existingUser = Users.findOne<UserDoc>({token: req.params.token});
             if(!existingUser) {
                 res.status(200).json({success: false, response: 'unknown'});
                 return;
@@ -141,6 +141,8 @@ export const api = () => {
             console.error('Error on route /register', error);
         }
     });
+
+
 
     return router;
 }

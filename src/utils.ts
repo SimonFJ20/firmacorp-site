@@ -8,10 +8,10 @@ export const generateUUID = (length: number) => {
     return id;
 }
 
-export const compareObjects = (primary: {}, secondary: {}) => {
+export const compareObjects = (source: {}, query: {}) => {
     try {
         // @ts-ignore
-        for(let i in primary) if(primary[i] !== secondary[i]) return false;
+        for(let i in query) if(query[i] !== source[i]) return false;
     } catch {
         return false;
     }
