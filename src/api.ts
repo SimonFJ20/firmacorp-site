@@ -213,6 +213,55 @@ export const api = () => {
         }
     });
 
+    router.get('/products/getone/:id', async (req, res) => {
+        try {
+            db.load();
+            const Products = db.collection('products');
+
+            if(!exists(req.params.id)) {
+                res.status(400).json({success: false, response: 'incomplete'});
+                return;
+            }
+
+            const product = Products.findOne<ProduktDoc>({id: req.params.id});
+            if(!product) {
+                res.status(404).json({success: false, response: 'unknown'});
+                return;
+            }
+
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                product: product
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /products/getone', error);
+        }
+    });
+
+    router.get('/products/search/:search?', async (req, res) => {
+        try {
+            db.load();
+            const Products = db.collection('products');
+
+            const search = req.params["search?"] || '';
+            const searchRegex = new RegExp(search);
+            const cursor = Products.findAll<ProduktDoc>({});
+            const products: ProduktDoc[] = [];
+            for(let i in cursor) if(searchRegex.test(cursor[i].title)) products.push(cursor[i]);
+
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                products: products
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /products/search', error);
+        }
+    });
+
     return router;
 }
 

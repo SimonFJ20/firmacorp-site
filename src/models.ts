@@ -7,6 +7,9 @@ export interface UserDoc extends JasonDoc {
 }
 
 export interface ProduktDoc extends JasonDoc {
-    
+    title: string,
+    description: string,
+    price: string,
+    images: string[]
 }
 

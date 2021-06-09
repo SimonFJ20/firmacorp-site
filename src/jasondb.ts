@@ -27,6 +27,12 @@ class JasonCollection {
         return null;
     }
 
+    public findAll =  <T extends JasonDoc = JasonDoc>(query: {}) => {
+        const out: T[] = [];
+        for(let i in this.docs) if(compareObjects(this.docs[i], query)) out.push(this.docs[i] as T);
+        return out;
+    }
+
     public updateOne = <T extends JasonDoc = JasonDoc>(query: {}, doc: {}) => {
         for(let i in this.docs) if(compareObjects(this.docs[i], query)) {
             this.docs[i] = {...this.docs[i], ...doc, id: this.docs[i].id};
