@@ -26,7 +26,8 @@ body {
     color: var(--accent-200);
     text-decoration: none;
 }
-.navigation > a:hover {
+.navigation > a:hover,
+.navigation > a:focus-visible {
     text-decoration: 2px var(--primary) underline solid;
 }
 
