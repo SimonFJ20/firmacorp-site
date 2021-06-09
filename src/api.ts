@@ -44,7 +44,7 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /login', error);
+            console.error('Error on route /users/login', error);
         }
     });
 
@@ -64,7 +64,7 @@ export const api = () => {
                 return;
             }
 
-            delete existingUser.token;
+            existingUser.token = '';
             const user = Users.replaceOne<UserDoc>({id: existingUser.id}, existingUser); 
             if(!user) throw new Error('error when replacing user');
             db.save();
@@ -75,7 +75,7 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /logout', error);
+            console.error('Error on route /users/logout', error);
         }
     });
 
@@ -101,7 +101,7 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /logout', error);
+            console.error('Error on route /users/checktoken', error);
         }
     });
 
@@ -138,7 +138,7 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /register', error);
+            console.error('Error on route /users/register', error);
         }
     });
 
@@ -177,7 +177,39 @@ export const api = () => {
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /register', error);
+            console.error('Error on route /products/create', error);
+        }
+    });
+
+    router.post('/products/delete', async (req, res) => {
+        try {
+            db.load();
+            const Users = db.collection('users');
+            const Products = db.collection('products');
+
+            if(!exists(req.body.token, req.body.id)) {
+                res.status(400).json({success: false, response: 'incomplete'});
+                return;
+            }
+
+            const existingUser = Users.findOne<UserDoc>({token: req.body.token});
+            if(!existingUser) {
+                res.status(400).json({success: false, response: 'unknown'});
+                return;
+            }
+
+            const product = Products.deleteOne<ProduktDoc>({id: req.body.id});
+            if(!product) throw new Error('error when deleting product');
+
+            db.save();
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                product: product
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /products/delete', error);
         }
     });
 
