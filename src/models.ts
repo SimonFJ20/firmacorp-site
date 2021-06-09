@@ -6,3 +6,7 @@ export interface UserDoc extends JasonDoc {
     token?: string
 }
 
+export interface ProduktDoc extends JasonDoc {
+    
+}
+
