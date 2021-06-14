@@ -301,14 +301,15 @@ export const api = () => {
                 return;
             }
 
-            const insert = Carousel.insertOne({main: true, products: req.body.products});
-            if(!insert) throw new Error('failed to insert');
+            const replaced = Carousel.replaceOne({}, {main: true, products: req.body.products});
+
+            if(!replaced) throw new Error('failed to replace');
 
             db.save();
             res.status(200).json({
                 success: true,
                 response: 'success',
-                carousel: insert
+                carousel: replaced
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});
