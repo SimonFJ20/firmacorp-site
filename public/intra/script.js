@@ -187,20 +187,23 @@ const makeProductList = async () => {
                 <td><button id="product-list-delete-${i}">Delete</button></td>
             </tr>
         `;
-        document.getElementById(`product-list-delete-${i}`).addEventListener('click', async () => {
-            const token = sessionStorage.getItem('token');
-            const id = products[i].id;
-            if(!id) return alert('Malformed input');
-            const url = '/api/products/delete';
-            const headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            const body = JSON.stringify({token, id});
-            const method = 'POST';
-            const result = await (await fetch(url, {headers, body, method})).json();
-            if(result.success) alert('Product deleted: ' + JSON.stringify(result.product, null, 4));
-            else alert('An error occurred:\n' + result.response);
-            makeProductList();
-        });
+        setTimeout(() => {
+            document.getElementById(`product-list-delete-${i}`).addEventListener('click', async () => {
+                const token = sessionStorage.getItem('token');
+                const id = products[i].id;
+                if(!id) return alert('Malformed input');
+                const url = '/api/products/delete';
+                const headers = new Headers();
+                headers.append('Content-Type', 'application/json');
+                const body = JSON.stringify({token, id});
+                const method = 'POST';
+                const result = await (await fetch(url, {headers, body, method})).json();
+                console.log(result)
+                if(result.success) alert('Product deleted:\n' + JSON.stringify(result.product, null, 4));
+                else alert('An error occurred:\n' + result.response);
+                makeProductList();
+            });
+        }, 100);
     }
 }
 
