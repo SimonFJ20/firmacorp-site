@@ -91,17 +91,19 @@ export class JasonDB {
                 const collection = new JasonCollection(name, docs);
                 this.collections.push(collection);
             }
-        } catch {
-
+        } catch(error) {
+            console.error('JasonDB LoadException', error);
         }
     }
 
     public save = () => {
-        const data = {
-            collections: this.collections
-        };
-        const json = JSON.stringify(data, null, 4);
-        writeFileSync(this.filename, json);
+        try {
+            const data = {collections: this.collections};
+            const json = JSON.stringify(data, null, 4);
+            writeFileSync(this.filename, json);
+        } catch(error) {
+            console.error('JasonDB SaveException', error);
+        }
     }
 
 }
