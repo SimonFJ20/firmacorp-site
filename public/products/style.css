@@ -116,3 +116,9 @@ body {
 .item > .item-footer > a:focus-visible {
     text-decoration: 2px solid underline var(--primary);
 }
+
+@media only screen and (max-width: 1350px) {
+	.main {
+    		padding: 5rem 6rem;
+	}
+}
