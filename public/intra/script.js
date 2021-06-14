@@ -73,7 +73,7 @@ const logoutHandler = () => {
 const registerHandler = async () => {
     const username = document.getElementById('register-username').value;
     const password = document.getElementById('register-password').value;
-    if(!username || !password) return alert('Malformed input');
+    if(!username || !password) return alert('Malformed inputs');
     const url = '/api/users/register';
     const headers = new Headers()
     headers.append('Content-Type', 'application/json');
