@@ -51,8 +51,10 @@ class JasonCollection {
 
     public deleteOne = <T extends JasonDoc = JasonDoc>(query: {}) => {
         for(let i = 0; i < this.docs.length; i++) if(compareObjects(this.docs[i], query)) {
-            const doc = Object.create(this.docs[i]) as JasonDoc;
+            const doc: JasonDoc = {id: ''};
+            Object.assign(doc, this.docs[i]);
             this.docs.splice(i, 1);
+            console.log(doc);
             return doc as T;
         };
         return null;

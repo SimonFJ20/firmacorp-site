@@ -160,7 +160,7 @@ const registerHandler = async () => {
     if(!username || !password) return alert('Malformed inputs');
     const url = '/api/users/register';
     const result = await execPostRequest(url, {username, password});
-    
+
     if(result.success) alert('User created:\n' + result.user);
     else alert('An error occurred:\n' + result.response);
 }
@@ -212,42 +212,41 @@ const setEventHandlers = () => {
     document.getElementById('carousel-set-submit').addEventListener('click', () => carouselSetHandler());
 }
 
-const makeProductListElementTitle = () => {
+const makeProductListElementTitle = (product) => {
     const tdTitle = document.createElement('td');
-    tdTitle.innerText = products[i].title;
+    tdTitle.innerText = product.title;
     return tdTitle;
 }
 
-const makeProductListElementPrice = () => {
+const makeProductListElementPrice = (product) => {
     const tdPrice = document.createElement('td');
-    tdPrice.innerText = products[i].price;
+    tdPrice.innerText = product.price;
     return tdPrice;
 }
 
-const makeProductListElementId = () => {
+const makeProductListElementId = (product) => {
     const tdId = document.createElement('td');
-    tdId.innerText = products[i].title;
+    tdId.innerText = product.title;
     return tdId;
 }
 
-const productListElementDeleteHandler = async () => {
+const productListElementDeleteHandler = async (product) => {
     const token = sessionStorage.getItem('token');
-    const id = products[i].id;
+    const id = product.id;
     if(!id) return alert('Malformed input');
     const url = '/api/products/delete';
     const result = await execPostRequest(url, {token, id})
-    console.log(result)
     if(result.success) alert('Product deleted:\n' + JSON.stringify(result.product, null, 4));
     else alert('An error occurred:\n' + result.response);
     makeProductList();
 }
 
-const makeProductListElementDeleteButton = () => {
+const makeProductListElementDeleteButton = (product) => {
     const tdButton = document.createElement('td');
     const deleteButton = document.createElement('button');
     deleteButton.innerHTML = 'Delete';
     tdButton.appendChild(deleteButton);
-    deleteButton.addEventListener('click', () => productListElementDeleteHandler());
+    deleteButton.addEventListener('click', () => productListElementDeleteHandler(product));
     return tdButton;
 }
 
@@ -257,13 +256,14 @@ const makeProductListElementTr = (tdTitle, tdPrice, tdId, tdButton) => {
     tr.appendChild(tdPrice);
     tr.appendChild(tdId);
     tr.appendChild(tdButton);
+    return tr;
 }
 
-const makeProductListElement = () => {
-    const tdTitle = makeProductListElementTitle();
-    const tdPrice = makeProductListElementPrice();
-    const tdId = makeProductListElementId();
-    const tdButton = makeProductListElementDeleteButton();
+const makeProductListElement = (product) => {
+    const tdTitle = makeProductListElementTitle(product);
+    const tdPrice = makeProductListElementPrice(product);
+    const tdId = makeProductListElementId(product);
+    const tdButton = makeProductListElementDeleteButton(product);
     const tr = makeProductListElementTr(tdTitle, tdPrice, tdId, tdButton);
     document.getElementById('product-list-table').appendChild(tr);
 }
@@ -271,7 +271,7 @@ const makeProductListElement = () => {
 const makeProductList = async () => {
     document.getElementById('product-list-table').innerHTML = htmlProductListTableHeaders();
     const products = await getProducts();
-    for(let i in products) makeProductListElement();
+    for(let i in products) makeProductListElement(products[i]);
 }
 
 const main = async () => {
