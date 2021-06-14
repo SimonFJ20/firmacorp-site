@@ -1,10 +1,10 @@
 
 const dostuff = (products, i) => {
-    document.getElementById('maintainerLLLL').innerHTML = products[i].title;
-    document.getElementById('fuckdigmaintainer').innerHTML = products[i].description;
-    document.getElementById('sutpikmaintainer').href = '/product/' + products[i].id;
-    document.getElementById('hahahaLLL').src = products[i].images[0];
-    document.getElementById('killyourself' + i).checked = true;
+    document.getElementById('carousel-title').innerHTML = products[i].title;
+    document.getElementById('carousel-description').innerHTML = products[i].description;
+    document.getElementById('carousel-buy').href = '/product/' + products[i].id;
+    document.getElementById('carousel-img').src = products[i].images[0];
+    document.getElementById('radio-button-' + i).checked = true;
 }
 
 (async () => {
@@ -13,14 +13,14 @@ const dostuff = (products, i) => {
 
     if (!response.success) return;
     
-    document.getElementById('dulortLLL').innerHTML = '';
+    document.getElementById('carousel-switch').innerHTML = '';
     for(let i in response.products) {
         const radioButton = document.createElement('input');
         radioButton.name = 'carousel';
         radioButton.type = 'radio';
-        radioButton.id = 'killyourself' + i;
+        radioButton.id = 'radio-button-' + i;
         radioButton.addEventListener('click', () => dostuff(response.products, i));
-        document.getElementById('dulortLLL').appendChild(radioButton);
+        document.getElementById('carousel-switch').appendChild(radioButton);
     }
     
     dostuff(response.products, 0);
