@@ -7,7 +7,7 @@ const updateCarouselInfo = (products, i) => {
     if(products.length > 1) document.getElementById(`radio-button-${i}`).checked = true;
 }
 
-const refreshRadioButtons = () => {
+const refreshRadioButtons = (products) => {
     document.getElementById('carousel-switch').innerHTML = '';
     for(let i in products) {
         const radioButton = document.createElement('input');
