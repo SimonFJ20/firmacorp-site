@@ -177,7 +177,7 @@ const makeProductList = async () => {
                 <td><button id="productListDeleteButtonWithId${i}">Delete</button></td>
             </tr>
         `;
-        setInterval(() => {
+        setTimeout(() => {
             document.getElementById(`productListDeleteButtonWithId${i}`).addEventListener('click', async () => {
                 const token = sessionStorage.getItem('token');
                 const id = products[i].id;
