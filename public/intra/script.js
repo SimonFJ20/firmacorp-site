@@ -43,8 +43,8 @@ const displayInput = async () => {
             <label for="product-create-price">Produkt Pris</label>
             <input id="product-create-price" type="number" min="0" value="0">
 
-            <label for="product-create-links">Produkt Billeder</label>
-            <textarea id="product-create-links" placeholder='[ image.com/image0, image.com/image1 ]'></textarea>
+            <label for="product-create-images">Produkt Billeder</label>
+            <textarea id="product-create-images" placeholder='[ image.com/image0, image.com/image1 ]'></textarea>
 
             <button id="product-create-submit">Create Product</button>
         </div>
