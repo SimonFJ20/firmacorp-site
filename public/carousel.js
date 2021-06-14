@@ -10,6 +10,8 @@ const dostuff = (products, i) => {
 (async () => {
     
     const response = await (await fetch('/api/carousel/get')).json()
+
+    if (!response.success) return;
     
     document.getElementById('dulortLLL').innerHTML = '';
     for(let i in response.products) {

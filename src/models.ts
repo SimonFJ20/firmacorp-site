@@ -13,3 +13,7 @@ export interface ProduktDoc extends JasonDoc {
     images: string[]
 }
 
+export interface CarouselDoc extends JasonDoc {
+    main: boolean,
+    products: string[]
+}
