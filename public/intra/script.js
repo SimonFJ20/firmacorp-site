@@ -41,7 +41,7 @@ const displayInput = async () => {
             <textarea id="product-create-description"></textarea>
 
             <label for="product-create-price">Produkt Pris</label>
-            <input id="product-create-price" type="number">
+            <input id="product-create-price" type="number" min="0" value="0">
 
             <label for="product-create-links">Produkt Billeder</label>
             <textarea id="product-create-links" placeholder='[ image.com/image0, image.com/image1 ]'></textarea>
