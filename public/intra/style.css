@@ -58,3 +58,17 @@ body {
     		padding: 5rem 6rem;
 	}
 }
+
+div#productList {
+    float: right;
+}
+
+table {
+    width: 30%;
+    border-spacing: 0;
+    border: 1px solid black;
+}
+
+td {
+    border: 1px solid black;
+}
