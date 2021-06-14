@@ -54,7 +54,6 @@ class JasonCollection {
             const doc: JasonDoc = {id: ''};
             Object.assign(doc, this.docs[i]);
             this.docs.splice(i, 1);
-            console.log(doc);
             return doc as T;
         };
         return null;
