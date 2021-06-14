@@ -98,11 +98,25 @@ const productCreateHandler = async () => {
     else alert('An error occurred:\n' + result.response);
 }
 
+const productDeleteHandler = async () => {
+    const token = sessionStorage.getItem('token');
+    const id = document.getElementById('product-delete-id').value;
+    if(!id) return alert('Virkelig fuck dig!');
+    const url = '/api/products/delete';
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const body = JSON.stringify({token, id});
+    const method = 'POST';
+    const result = await (await fetch(url, {headers, body, method})).json();
+    if(result.success) alert('LOL det virkede, røvhul\nDeleted Product: ' + JSON.stringify(result.product, null, 4));
+    else alert('Hold kæft du lort\n' + result.response);
+}
+
 const setEventHandlers = () => {
     document.getElementById('logout-submit').addEventListener('click', () => logoutHandler());
     document.getElementById('register-submit').addEventListener('click', () => registerHandler());
     document.getElementById('product-create-submit').addEventListener('click', () => productCreateHandler());
-    document.getElementById('product-delete-submit').addEventListener('click', () => {});
+    document.getElementById('product-delete-submit').addEventListener('click', () => productDeleteHandler());
 }
 
 const main = async () => {
