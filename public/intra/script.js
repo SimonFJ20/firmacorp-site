@@ -57,7 +57,10 @@ const displayInput = () => {
         </div>
         <h2>→ /carousel/set</h2>
         <div class="form">
-            <p>jeg ved ik hvordan den fungerer lol</p>
+            <label for="carousel-set-products">Produkts</label>
+            <textarea id="carousel-set-products"></textarea>
+
+            <button id="product-delete-submit">Set Carousel Products</button>
         </div>
     `
 }
