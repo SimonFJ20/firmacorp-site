@@ -43,7 +43,7 @@ const displayInput = () => {
             <input id="product-create-price" type="number" min="0" value="0">
 
             <label for="product-create-images">Produkt Billeder</label>
-            <textarea id="product-create-images" placeholder='[ image.com/image0, image.com/image1 ]'></textarea>
+            <textarea id="product-create-images"></textarea>
 
             <button id="product-create-submit">Create Product</button>
         </div>
