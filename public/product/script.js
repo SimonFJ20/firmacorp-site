@@ -28,6 +28,7 @@ const getProductInformation = async () => {
                 });
                 document.getElementById('carousel-switch').appendChild(radioButton);
             }
+            document.getElementById('radio-button-0').checked = true;
         }
     };
 }
