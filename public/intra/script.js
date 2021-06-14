@@ -60,7 +60,7 @@ const displayInput = () => {
             <label for="carousel-set-products">Produkts</label>
             <textarea id="carousel-set-products"></textarea>
 
-            <button id="product-delete-submit">Set Carousel Products</button>
+            <button id="carousel-set-submit">Set Carousel Products</button>
         </div>
     `
 }
@@ -115,11 +115,26 @@ const productDeleteHandler = async () => {
     else alert('Hold kæft du lort\n' + result.response);
 }
 
+const carouselSetHandler = async () => {
+    const token = sessionStorage.getItem('token');
+    const products = document.getElementById('carousel-set-products').value.split('\n');
+    if(!products) return alert('Virkelig fuck dig!');
+    const url = '/api/carousel/set';
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const body = JSON.stringify({token, products});
+    const method = 'POST';
+    const result = await (await fetch(url, {headers, body, method})).json();
+    if(result.success) alert('LOL det virkede, røvhul\nCarousel: ' + JSON.stringify(result.product, null, 4));
+    else alert('Hold kæft du lort\n' + result.response);
+}
+
 const setEventHandlers = () => {
     document.getElementById('logout-submit').addEventListener('click', () => logoutHandler());
     document.getElementById('register-submit').addEventListener('click', () => registerHandler());
     document.getElementById('product-create-submit').addEventListener('click', () => productCreateHandler());
     document.getElementById('product-delete-submit').addEventListener('click', () => productDeleteHandler());
+    document.getElementById('carousel-set-submit').addEventListener('click', () => carouselSetHandler());
 }
 
 const main = async () => {

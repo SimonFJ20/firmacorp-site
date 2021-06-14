@@ -1,6 +1,7 @@
 
 const get = async () => {
     const data = await (await fetch('/api/products/search/' + document.getElementById('search').value)).json();
+    console.log(data)
     document.getElementById('product-list').innerHTML = data.products.map(product => /*html*/ `
         <div class="item">
             <img class="item-img" src="${product.images[0]}">
