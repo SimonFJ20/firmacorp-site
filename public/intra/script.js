@@ -110,7 +110,7 @@ const registerHandler = async () => {
     const body = JSON.stringify({username, password});
     const method = 'POST';
     const result = await (await fetch(url, {headers, body, method})).json();
-    if(result.success) alert('User created: ' + result.user);
+    if(result.success) alert('User created:\n' + result.user);
     else alert('An error occurred:\n' + result.response);
 }
 
@@ -127,7 +127,7 @@ const productCreateHandler = async () => {
     const body = JSON.stringify({token, title, description, price, images});
     const method = 'POST';
     const result = await (await fetch(url, {headers, body, method})).json();
-    if(result.success) alert('Product created: ' + JSON.stringify(result.product, null, 4));
+    if(result.success) alert('Product created:\n' + JSON.stringify(result.product, null, 4));
     else alert('An error occurred:\n' + result.response);
 }
 
@@ -141,7 +141,7 @@ const productDeleteHandler = async () => {
     const body = JSON.stringify({token, id});
     const method = 'POST';
     const result = await (await fetch(url, {headers, body, method})).json();
-    if(result.success) alert('Product deleted: ' + JSON.stringify(result.product, null, 4));
+    if(result.success) alert('Product deleted:\n' + JSON.stringify(result.product, null, 4));
     else alert('An error occurred:\n' + result.response);
 }
 
@@ -155,7 +155,8 @@ const carouselSetHandler = async () => {
     const body = JSON.stringify({token, products});
     const method = 'POST';
     const result = await (await fetch(url, {headers, body, method})).json();
-    if(result.success) alert('Carousel set: ' + JSON.stringify(result.product, null, 4));
+    console.log(result)
+    if(result.success) alert('Carousel set:\n' + JSON.stringify(result.carousel, null, 4));
     else alert('An error occurred:\n' + result.response);
 }
 
