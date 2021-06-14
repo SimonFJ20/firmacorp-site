@@ -1,6 +1,5 @@
 
-
-(async () => {
+const get = async () => {
     const data = await (await fetch('/api/products/search/' + document.getElementById('search').value)).json();
     document.getElementById('product-list').innerHTML = data.products.map(product => /*html*/ `
         <div class="item">
@@ -13,4 +12,7 @@
             </div>
         </div>
     `).join();
-})()
+}
+
+document.getElementById('search').addEventListener('input', () => get());
+get();
