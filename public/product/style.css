@@ -42,10 +42,12 @@ body {
 
 .info-container {
     padding: 0 1.5rem;
+    width: 50%;
 }
 
 .product-img {
     border-radius: 0.5rem;
+    width: 50%;
 }
 
 .product-footer {
@@ -57,6 +59,7 @@ body {
 .product-description {
     font-size: 1.25rem;
     padding: 0 0.5em;
+    word-break: break-all;
 }
 
 .product-footer > h2 {

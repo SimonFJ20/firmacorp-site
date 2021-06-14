@@ -18,11 +18,13 @@ app.get('/product/:id', async (req, res) => {
 
     //BANDAID FIX
     //TODO: STATIC DIRECTORY?
-    if (req.params.id === 'style.css') return res.sendFile(path.join(__dirname, '../public/product/style.css'));
+    //if (req.params.id === 'style.css') return res.sendFile(path.join(__dirname, '../public/product/style.css'));
+    //if (req.params.id === 'script.js') return res.sendFile(path.join(__dirname, '../public/product/script.js'));
 
     const Products = getJasonDB('db.json').collection('products');
-    if(Products.findOne({id: req.params.id})) res.status(200).sendFile(path.join(__dirname, '../public/product/index.html'))
-    res.status(404);
+    if(Products.findOne({id: req.params.id})) return res.status(200).sendFile(path.join(__dirname, '../public/product/index.html'))
+
+    res.status(404).send('<center><h1>Product not found</h1></center>');
 });
 
 app.get('/product', async (req, res) => {
