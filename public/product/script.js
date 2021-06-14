@@ -15,6 +15,19 @@ const getProductInformation = async () => {
         productDescription.innerText = product.description;
         productPrice.innerText = product.price;
         productImage.src = product.images[0];
+        
+        
+        document.getElementById('imageSelector').innerHTML = '';
+        for(let i in response.products) {
+            const radioButton = document.createElement('input');
+            radioButton.name = 'carousel';
+            radioButton.type = 'radio';
+            radioButton.id = 'imageSelector' + i;
+            radioButton.addEventListener('click', () => dostuff(response.products, i));
+            document.getElementById('dulortLLL').appendChild(radioButton);
+        }
+        
+        
     };
 }
 
