@@ -4,11 +4,6 @@ const productDescription = document.getElementById('product-description');
 const productPrice = document.getElementById('product-price');
 const productBuy = document.getElementById('product-buy');
 
-const selectImage = (images, i) => {
-    document.getElementById('product-img').src = images[i];
-    document.getElementById('imageSelector' + i).checked = true;
-}
-
 const getProductInformation = async () => {
     const id = window.location.href.match(/\/(\w+)$/);
 
@@ -20,21 +15,6 @@ const getProductInformation = async () => {
         productDescription.innerText = product.description;
         productPrice.innerText = product.price;
         productImage.src = product.images[0];
-        
-        
-        document.getElementById('imageSelector').innerHTML = '';
-        for(let i in product.images) {
-            const radioButton = document.createElement('input');
-            radioButton.name = 'carousel';
-            radioButton.type = 'radio';
-            radioButton.id = 'imageSelector' + i;
-            radioButton.addEventListener('click', () => selectImage(product.images, i));
-            document.getElementById('imageSelector').appendChild(radioButton);
-        }
-        
-        selectImage(product.images, 0);
-        
-        
     };
 }
 

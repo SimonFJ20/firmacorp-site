@@ -1,4 +1,3 @@
-
 if(!sessionStorage.getItem('token')) location.pathname = '/intra/login';
 
 const page = document.getElementById('main')
@@ -18,7 +17,15 @@ const checkToken = async () => {
 }
 
 const displayInput = async () => {
-    
+    page.innerHTML = `
+        <h1>Velkommen til Intra</h1>
+        <h2>Create Product</h2>
+
+        <h2>
+        
+        </h2>
+    `
 }
 
-await checkToken();
+checkToken();
+displayInput();
