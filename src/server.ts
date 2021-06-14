@@ -24,7 +24,7 @@ app.get('/product/:id', async (req, res) => {
     const Products = getJasonDB('db.json').collection('products');
     if(Products.findOne({id: req.params.id})) return res.status(200).sendFile(path.join(__dirname, '../public/product/index.html'))
 
-    res.status(404).send('<center><h1>Product not found</h1></center><a href="/">Gå tilbage</a>');
+    res.status(404).send('<center><h1>Product not found</h1><a href="/"><button>Gå tilbage</button></a></center>');
 });
 
 app.get('/product', async (req, res) => {
