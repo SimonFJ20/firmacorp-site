@@ -59,16 +59,18 @@ body {
 	}
 }
 
-div#productList {
-    float: right;
+#product-list {
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 
-table {
+#product-list-table {
     width: 30%;
     border-spacing: 0;
-    border: 1px solid black;
+    border-collapse: collapse;
 }
 
-td {
+#product-list-table td, th {
     border: 1px solid black;
 }
