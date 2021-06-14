@@ -73,7 +73,7 @@ const logoutHandler = () => {
 const registerHandler = async () => {
     const username = document.getElementById('register-username').value;
     const password = document.getElementById('register-password').value;
-    if(!username || !password) return alert('Virkelig fuck dig!');
+    if(!username || !password) return alert('Malformed input');
     const url = '/api/users/register';
     const headers = new Headers()
     headers.append('Content-Type', 'application/json');
@@ -104,7 +104,7 @@ const productCreateHandler = async () => {
 const productDeleteHandler = async () => {
     const token = sessionStorage.getItem('token');
     const id = document.getElementById('product-delete-id').value;
-    if(!id) return alert('Virkelig fuck dig!');
+    if(!id) return alert('Malformed input');
     const url = '/api/products/delete';
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -118,7 +118,7 @@ const productDeleteHandler = async () => {
 const carouselSetHandler = async () => {
     const token = sessionStorage.getItem('token');
     const products = document.getElementById('carousel-set-products').value.split('\n');
-    if(!products) return alert('Virkelig fuck dig!');
+    if(!products) return alert('Malformed input');
     const url = '/api/carousel/set';
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
