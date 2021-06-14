@@ -32,7 +32,6 @@ const displayInput = () => {
             <button id="register-submit">Register</button>
         </div>
         <h2>↓ /products/create</h2>
-        <!--title, description, price, images-->
         <div class="form" id="product-create">
             <label for="product-create-title">Produkt Titel</label>
             <input id="product-create-title">
@@ -43,8 +42,8 @@ const displayInput = () => {
             <label for="product-create-price">Produkt Pris</label>
             <input id="product-create-price" type="number" min="0" value="0">
 
-            <label for="product-create-links">Produkt Billeder</label>
-            <textarea id="product-create-links" placeholder='[ image.com/image0, image.com/image1 ]'></textarea>
+            <label for="product-create-images">Produkt Billeder</label>
+            <textarea id="product-create-images"></textarea>
 
             <button id="product-create-submit">Create Product</button>
         </div>
