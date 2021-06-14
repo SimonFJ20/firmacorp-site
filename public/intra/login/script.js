@@ -4,7 +4,8 @@ const password = document.getElementById('password');
 const submit = document.getElementById('submit');
 const text = document.getElementById('error');
 
-submit.addEventListener('click', async () => {
+
+const submitHandler = async () => {
     if (username.value !== '' && password.value !== '') {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -26,4 +27,20 @@ submit.addEventListener('click', async () => {
     } else {
         text.innerText = 'Username or password must not be blank.'
     }
-})
+}
+
+username.addEventListener('keydown', async (e) => {
+    if(e.key === 'Enter') {
+        if(password.value) return submitHandler();
+        password.focus();
+    }
+});
+
+password.addEventListener('keydown', async (e) => {
+    if(e.key === 'Enter') {
+        if(username.value) return submitHandler();
+        username.focus();
+    }
+});
+
+submit.addEventListener('click', () => submitHandler())

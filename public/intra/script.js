@@ -15,7 +15,7 @@ const checkToken = async () => {
     }
 }
 
-const displayInput = async () => {
+const displayInput = () => {
     page.innerHTML = /*html*/`
         <h1>Velkommen til Intra</h1>
         <h2>↓ /users/logout</h2>
@@ -63,10 +63,23 @@ const displayInput = async () => {
     `
 }
 
+const logoutHandler = () => {
+    sessionStorage.removeItem('token');
+    location.pathname = '/';
+}
+
+const setEventHandlers = () => {
+    document.getElementById('logout-submit').addEventListener('click', () => logoutHandler());
+    document.getElementById('register-submit').addEventListener('click', () => {});
+    document.getElementById('product-create-submit').addEventListener('click', () => {});
+    document.getElementById('product-delete-submit').addEventListener('click', () => {});
+}
+
 const main = async () => {
     if(!sessionStorage.getItem('token')) location.pathname = '/intra/login';
     await checkToken();
-    await displayInput();
+    displayInput();
+    setEventHandlers();
 }
 
 main();
