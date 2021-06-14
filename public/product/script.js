@@ -7,9 +7,6 @@ const productBuy = document.getElementById('product-buy');
 const getProductInformation = async () => {
     const id = window.location.href.match(/\/(\w+)$/);
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
     const response = await (await fetch('/api/products/getone/' + id[1])).json();
 
     if (response.success) {
