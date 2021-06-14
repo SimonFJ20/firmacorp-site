@@ -34,12 +34,17 @@ body {
 }
 
 .main {
-    padding: 5rem 15rem;
+    padding: 2.5rem 15rem;
     text-align: center;
 }
 
-.main > * {
-    margin: 0.5rem 0;
+.main * {
+    margin: 0.75rem auto;
+}
+
+
+.main > .form > * {
+    display: block;
 }
 
 @media only screen and (max-width: 1350px) {
