@@ -13,8 +13,22 @@ const getProductInformation = async () => {
         const product = response.product;
         productTitle.innerText = product.title;
         productDescription.innerText = product.description;
-        productPrice.innerText = product.price;
+        productPrice.innerText = product.price + ' DKK';
         productImage.src = product.images[0];
+
+        document.getElementById('carousel-switch').innerHTML = '';
+        if (product.images.length !== 1) {
+            for(let i in product.images) {
+                const radioButton = document.createElement('input');
+                radioButton.name = 'carousel';
+                radioButton.type = 'radio';
+                radioButton.id = 'radio-button-' + i;
+                radioButton.addEventListener('click', () => {
+                    productImage.src = product.images[i];
+                });
+                document.getElementById('carousel-switch').appendChild(radioButton);
+            }
+        }
     };
 }
 

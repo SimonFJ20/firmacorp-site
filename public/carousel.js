@@ -1,5 +1,5 @@
 
-const dostuff = (products, i) => {
+const updateCarouselInfo = (products, i) => {
     document.getElementById('carousel-title').innerHTML = products[i].title;
     document.getElementById('carousel-description').innerHTML = products[i].description;
     document.getElementById('carousel-buy').href = '/product/' + products[i].id;
@@ -19,11 +19,11 @@ const dostuff = (products, i) => {
         radioButton.name = 'carousel';
         radioButton.type = 'radio';
         radioButton.id = 'radio-button-' + i;
-        radioButton.addEventListener('click', () => dostuff(response.products, i));
+        radioButton.addEventListener('click', () => updateCarouselInfo(response.products, i));
         document.getElementById('carousel-switch').appendChild(radioButton);
     }
     
-    dostuff(response.products, 0);
+    updateCarouselInfo(response.products, 0);
     
 })()
 

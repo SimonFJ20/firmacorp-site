@@ -101,8 +101,7 @@ body {
     justify-content: space-between;
 }
 
-.item > .item-footer > h2,
-.item > .item-footer > a {
+.item > .item-footer > * {
     font-size: 1.5rem;
     margin: 0;
 }
