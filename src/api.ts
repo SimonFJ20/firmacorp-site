@@ -278,44 +278,6 @@ export const api = () => {
             console.error('Error on route /products/search', error);
         }
     });
-
-        
-    router.post('/carousel/set', async (req, res) => {
-        try {
-            db.load();
-            const Users = db.collection('users');
-            const Carousel = db.collection('carousel');
-
-            if(!exists(req.body.token, req.body.products)) {
-                res.status(400).json({success: false, response: 'incomplete'});
-                return;
-            }
-
-            const existingUser = Users.findOne<UserDoc>({token: req.body.token});
-            if(!existingUser) {
-                res.status(400).json({success: false, response: 'unknown'});
-                return;
-            }
-            
-            if(!Array.isArray(req.body.products)) {
-                res.status(400).json({success: false, response: 'missing array'});
-                return;
-            }
-
-            const insert = Carousel.insertOne({main: true, products: req.body.products});
-            if(!insert) throw new Error('failed to insert');
-
-            db.save();
-            res.status(200).json({
-                success: true,
-                response: 'success',
-                carousel: insert
-            });
-        } catch(error) {
-            res.status(500).json({success: false, response: 'error'});
-            console.error('Error on route /carousel/set', error);
-        }
-    });
     
     router.post('/carousel/set', async (req, res) => {
         try {

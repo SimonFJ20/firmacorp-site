@@ -1,5 +1,4 @@
 
-
 const page = document.getElementById('main')
 
 const checkToken = async () => {
@@ -17,13 +16,13 @@ const checkToken = async () => {
 }
 
 const displayInput = async () => {
-    page.innerHTML = `
+    page.innerHTML = /*html*/`
         <h1>Velkommen til Intra</h1>
-        <h2>Create Product</h2>
-
-        <h2>
-        
-        </h2>
+        <h2>/users/logout</h2>
+        <h2>/users/register</h2>
+        <h2>/products/create</h2>
+        <h2>/products/delete</h2>
+        <h2>/carousel/set</h2>
     `
 }
 
