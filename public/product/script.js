@@ -17,7 +17,7 @@ const getProductInformation = async () => {
         productImage.src = product.images[0];
 
         document.getElementById('carousel-switch').innerHTML = '';
-        if (product.images.length !== 1) {
+        if (product.images.length > 1) {
             for(let i in product.images) {
                 const radioButton = document.createElement('input');
                 radioButton.name = 'carousel';

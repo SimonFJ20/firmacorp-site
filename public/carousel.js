@@ -14,13 +14,15 @@ const updateCarouselInfo = (products, i) => {
     if (!response.success) return;
     
     document.getElementById('carousel-switch').innerHTML = '';
-    for(let i in response.products) {
-        const radioButton = document.createElement('input');
-        radioButton.name = 'carousel';
-        radioButton.type = 'radio';
-        radioButton.id = 'radio-button-' + i;
-        radioButton.addEventListener('click', () => updateCarouselInfo(response.products, i));
-        document.getElementById('carousel-switch').appendChild(radioButton);
+    if (response.products.length > 1) {
+        for(let i in response.products) {
+            const radioButton = document.createElement('input');
+            radioButton.name = 'carousel';
+            radioButton.type = 'radio';
+            radioButton.id = 'radio-button-' + i;
+            radioButton.addEventListener('click', () => updateCarouselInfo(response.products, i));
+            document.getElementById('carousel-switch').appendChild(radioButton);
+        }    
     }
     
     updateCarouselInfo(response.products, 0);
