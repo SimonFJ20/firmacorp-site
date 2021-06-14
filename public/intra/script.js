@@ -32,7 +32,6 @@ const displayInput = () => {
             <button id="register-submit">Register</button>
         </div>
         <h2>↓ /products/create</h2>
-        <!--title, description, price, images-->
         <div class="form" id="product-create">
             <label for="product-create-title">Produkt Titel</label>
             <input id="product-create-title">
