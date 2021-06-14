@@ -2,6 +2,7 @@
 *::before,
 *::after {
     box-sizing: border-box;
+    color: var(--accent-900);
 }
 
 :root {
@@ -72,7 +73,7 @@ body {
 
 .carousel-blurb > a {
     font-size: 1.75rem;
-    color: hsl(0, 0%, 10%);
+    color: var(--accent-900);
     font-style: italic;
     margin: 0.75em;
     width: max-content;
@@ -101,10 +102,9 @@ body {
     -moz-appearance: none;
     appearance: none;
     
-    
     width: 1rem;
 	height: 1rem;
-	border: 2px solid #555555;
+	border: 2px solid var(--accent-900);
 	border-radius: 50%;
 	background-clip: content-box;
 	padding: 2px;
@@ -114,6 +114,11 @@ body {
 }
 
 .carousel-switch > input[type="radio"]:checked {
-    border: 2px solid var(--accent-900);
     background-color: var(--accent-900);
+}
+
+@media only screen and (max-width: 1350px) {
+	.main {
+    		padding: 5rem 6rem;
+	}
 }

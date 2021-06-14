@@ -240,12 +240,12 @@ export const api = () => {
         }
     });
 
-    router.get('/products/search/:search?', async (req, res) => {
+    router.get('/products/search/:search', async (req, res) => {
         try {
             db.load();
             const Products = db.collection('products');
 
-            const search = req.params["search?"] || '';
+            const search = req.params.search || '';
             const searchRegex = new RegExp(search);
             const cursor = Products.findAll<ProduktDoc>({});
             const products: ProduktDoc[] = [];
@@ -255,6 +255,24 @@ export const api = () => {
                 success: true,
                 response: 'success',
                 products: products
+            });
+        } catch(error) {
+            res.status(500).json({success: false, response: 'error'});
+            console.error('Error on route /products/search', error);
+        }
+    });
+
+    router.get('/products/search/', async (req, res) => {
+        try {
+            db.load();
+            const Products = db.collection('products');
+
+            const cursor = Products.findAll<ProduktDoc>({});
+
+            res.status(200).json({
+                success: true,
+                response: 'success',
+                products: cursor
             });
         } catch(error) {
             res.status(500).json({success: false, response: 'error'});

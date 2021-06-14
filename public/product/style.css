@@ -2,6 +2,7 @@
 *::before,
 *::after {
     box-sizing: border-box;
+    color: var(--accent-900);
 }
 
 :root {
@@ -33,4 +34,44 @@ body {
 
 .main {
     padding: 5rem 15rem;
+}
+
+.product-container {
+    display: flex;
+}
+
+.info-container {
+    padding: 0 1.5rem;
+}
+
+.product-img {
+    border-radius: 0.5rem;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em;
+}
+
+.product-description {
+    font-size: 1.25rem;
+    padding: 0 0.5em;
+}
+
+.product-footer > h2 {
+    margin: 0;
+    font-size: 1.75rem;
+}
+
+.product-buy > a {
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: normal;
+    text-decoration: 2px underline solid var(--accent-900);
+    color: var(--accent-900);
+}
+.product-buy > a:hover,
+.product-buy > a:focus-visible {
+    text-decoration: 2px underline solid var(--primary);
 }
