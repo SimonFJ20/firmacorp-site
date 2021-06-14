@@ -80,8 +80,8 @@ const registerHandler = async () => {
     const body = JSON.stringify({username, password});
     const method = 'POST';
     const result = await (await fetch(url, {headers, body, method})).json();
-    if(result.success) alert('LOL det virkede, røvhul\nUserid: ' + result.user);
-    else alert('Hold kæft du lort\n' + result.response);
+    if(result.success) alert('User created: ' + result.user);
+    else alert('An error occurred:\n' + result.response);
 }
 
 const productCreateHandler = async () => {
@@ -89,16 +89,16 @@ const productCreateHandler = async () => {
     const title = document.getElementById('product-create-title').value;
     const description = document.getElementById('product-create-description').value;
     const price = document.getElementById('product-create-price').value;
-    const images = document.getElementById('product-create-links').value.split('\n');
-    if(!(title && description && price && images)) return alert('Virkelig fuck dig!');
+    const images = document.getElementById('product-create-images').value.split('\n');
+    if(!(title && description && price && images)) return alert('Malformed input');
     const url = '/api/products/create';
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     const body = JSON.stringify({token, title, description, price, images});
     const method = 'POST';
     const result = await (await fetch(url, {headers, body, method})).json();
-    if(result.success) alert('LOL det virkede, røvhul\nProduct: ' + JSON.stringify(result.product, null, 4));
-    else alert('Hold kæft du lort\n' + result.response);
+    if(result.success) alert('Product created: ' + JSON.stringify(result.product, null, 4));
+    else alert('An error occurred:\n' + result.response);
 }
 
 const productDeleteHandler = async () => {
