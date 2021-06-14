@@ -68,10 +68,41 @@ const logoutHandler = () => {
     location.pathname = '/';
 }
 
+const registerHandler = async () => {
+    const username = document.getElementById('register-username').value;
+    const password = document.getElementById('register-password').value;
+    if(!username || !password) return alert('Virkelig fuck dig!');
+    const url = '/api/users/register';
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json');
+    const body = JSON.stringify({username, password});
+    const method = 'POST';
+    const result = await (await fetch(url, {headers, body, method})).json();
+    if(result.success) alert('LOL det virkede, røvhul\nUserid: ' + result.user);
+    else alert('Hold kæft du lort\n' + result.response);
+}
+
+const productCreateHandler = async () => {
+    const token = sessionStorage.getItem('token');
+    const title = document.getElementById('product-create-title').value;
+    const description = document.getElementById('product-create-description').value;
+    const price = document.getElementById('product-create-price').value;
+    const images = document.getElementById('product-create-links').value.split('\n');
+    if(!(title && description && price && images)) return alert('Virkelig fuck dig!');
+    const url = '/api/products/create';
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const body = JSON.stringify({token, title, description, price, images});
+    const method = 'POST';
+    const result = await (await fetch(url, {headers, body, method})).json();
+    if(result.success) alert('LOL det virkede, røvhul\nProduct: ' + JSON.stringify(result.product, null, 4));
+    else alert('Hold kæft du lort\n' + result.response);
+}
+
 const setEventHandlers = () => {
     document.getElementById('logout-submit').addEventListener('click', () => logoutHandler());
-    document.getElementById('register-submit').addEventListener('click', () => {});
-    document.getElementById('product-create-submit').addEventListener('click', () => {});
+    document.getElementById('register-submit').addEventListener('click', () => registerHandler());
+    document.getElementById('product-create-submit').addEventListener('click', () => productCreateHandler());
     document.getElementById('product-delete-submit').addEventListener('click', () => {});
 }
 
