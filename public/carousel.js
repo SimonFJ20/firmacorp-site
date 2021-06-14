@@ -4,7 +4,9 @@ const updateCarouselInfo = (products, i) => {
     document.getElementById('carousel-description').innerHTML = products[i].description;
     document.getElementById('carousel-buy').href = '/product/' + products[i].id;
     document.getElementById('carousel-img').src = products[i].images[0];
-    document.getElementById(`radio-button-${i}`).checked = true;
+    
+    if (products.length > 1)
+        document.getElementById(`radio-button-${i}`).checked = true;
 }
 
 (async () => {
