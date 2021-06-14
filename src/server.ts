@@ -34,6 +34,7 @@ app.get('/product', async (req, res) => {
 const apiRouter = api();
 app.use('/api', apiRouter);
 app.use('/', express.static(path.join(__dirname, '../public/')));
+app.use('/static', express.static(path.join(__dirname, '../public/')));
 
 app.listen(PORT, () => {
     console.log('Express on port', PORT);
