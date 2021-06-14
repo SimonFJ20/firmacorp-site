@@ -69,7 +69,7 @@ body {
 .product-description {
     font-size: 1.25rem;
     padding: 0 0.5em;
-    word-break: break-all;
+    word-wrap: break-word;
     flex: 1;
 }
 
