@@ -4,7 +4,7 @@ const updateCarouselInfo = (products, i) => {
     document.getElementById('carousel-description').innerHTML = products[i].description;
     document.getElementById('carousel-buy').href = '/product/' + products[i].id;
     document.getElementById('carousel-img').src = products[i].images[0];
-    document.getElementById('radio-button-' + i).checked = true;
+    document.getElementById(`radio-button-${i}`).checked = true;
 }
 
 (async () => {
@@ -19,7 +19,7 @@ const updateCarouselInfo = (products, i) => {
             const radioButton = document.createElement('input');
             radioButton.name = 'carousel';
             radioButton.type = 'radio';
-            radioButton.id = 'radio-button-' + i;
+            radioButton.id = `radio-button-${i}`;
             radioButton.addEventListener('click', () => updateCarouselInfo(response.products, i));
             document.getElementById('carousel-switch').appendChild(radioButton);
         }    
