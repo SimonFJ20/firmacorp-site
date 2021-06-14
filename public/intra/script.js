@@ -111,8 +111,8 @@ const productDeleteHandler = async () => {
     const body = JSON.stringify({token, id});
     const method = 'POST';
     const result = await (await fetch(url, {headers, body, method})).json();
-    if(result.success) alert('LOL det virkede, røvhul\nDeleted Product: ' + JSON.stringify(result.product, null, 4));
-    else alert('Hold kæft du lort\n' + result.response);
+    if(result.success) alert('Product deleted: ' + JSON.stringify(result.product, null, 4));
+    else alert('An error occurred:\n' + result.response);
 }
 
 const setEventHandlers = () => {
