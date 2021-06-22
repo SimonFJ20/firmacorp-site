@@ -226,7 +226,7 @@ const makeProductListElementPrice = (product) => {
 
 const makeProductListElementId = (product) => {
     const tdId = document.createElement('td');
-    tdId.innerText = product.title;
+    tdId.innerText = product.id;
     return tdId;
 }
 
