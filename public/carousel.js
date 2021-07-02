@@ -22,7 +22,8 @@ const refreshRadioButtons = (products) => {
 const makeCarousel = async () => {
     const response = await (await fetch('/api/carousel/get')).json();
     if (!response.success) return;
-    if (response.products.length > 1) refreshRadioButtons(response.products);
+    if (response.products.length > 1) refreshRadioButtons(response.products)
+        else document.getElementById('carousel-switch').innerHTML = '';
     updateCarouselInfo(response.products, 0);
 }
 
