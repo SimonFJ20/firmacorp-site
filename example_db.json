@@ -1,0 +1,40 @@
+{
+    "collections": [
+        {
+            "name": "users",
+            "docs": [
+                {
+                    "username": "testuser",
+                    "password": "password",
+                    "id": "P3rF7jDNtmkHPCyz"
+                }
+            ]
+        },
+        {
+            "name": "products",
+            "docs": [
+                {
+                    "title": "testproduct",
+                    "description": "description",
+                    "price": "0",
+                    "images": [
+                        "localhost/static/img/cat.jpg"
+                    ],
+                    "id": "JbdUMnIkUYqaIoBh"
+                }
+            ]
+        },
+        {
+            "name": "carousel",
+            "docs": [
+                {
+                    "main": true,
+                    "products": [
+                        "JbdUMnIkUYqaIoBh"
+                    ],
+                    "id": "wvPxcrDyok60QtDe"
+                }
+            ]
+        }
+    ]
+}
